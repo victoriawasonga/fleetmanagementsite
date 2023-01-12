@@ -1,0 +1,31 @@
+{%extends '_partials/base_authentication.html'%}
+{%load static%}
+{%block content%}
+    <div class="login-body">
+    
+        <div class="login-content fs-13px">
+        <form action="https://seantheme.com/color-admin/admin/html/index.html" method="GET">
+        <div class="form-floating mb-20px">
+        <input type="email" class="form-control fs-13px h-45px" id="emailAddress" placeholder="Email Address" />
+        <label for="emailAddress" class="d-flex align-items-center py-0">Email Address</label>
+        </div>
+        <div class="form-floating mb-20px">
+        <input type="password" class="form-control fs-13px h-45px" id="password" placeholder="Password" />
+        <label for="password" class="d-flex align-items-center py-0">Password</label>
+        </div>
+        <div class="form-check mb-20px">
+        <input class="form-check-input" type="checkbox" value="" id="rememberMe" />
+        <label class="form-check-label" for="rememberMe">
+        Remember Me
+        </label>
+        </div>
+        <div class="login-buttons">
+        <button type="submit" class="btn h-45px btn-success d-block w-100 btn-lg">Sign me in</button>
+        </div>
+        </form>
+        </div>
+        
+        </div>
+
+{%endblock content%}
+        
