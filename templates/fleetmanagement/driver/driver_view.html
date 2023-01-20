@@ -1,0 +1,123 @@
+{%extends '_partials/base.html'%}
+{%load static%}
+   {%block content%}
+   <div id="content" class="app-content">
+    <h1 class="page-header"></h1>
+	<div class="panel panel-inverse">
+        <div class="panel-heading">
+        <h4 class="panel-title">Drivers</h4>
+        <div class="panel-heading-btn">
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"></a>
+        </div>
+        </div>
+        <div class="panel-body">
+                {%include '_partials/messages.html'%}
+                <div class="card border-0 mb-4">
+                        <div class="card-header h6 mb-0 bg-none p-3 d-flex">
+                                <div class="flex-1">
+                                        <div>First Name:
+                                                <span class="text-gray-500 fw-bold fs-11px">
+                                                        {{driver.First_name}}
+                                                </span>
+                                        </div>  
+                                </div>
+                        </div>
+                </div>
+                <div class="card border-0 mb-4">
+                        <div class="card-header h6 mb-0 bg-none p-3 d-flex">
+                                <div class="flex-1">
+                                        <div>Last Name:
+                                                <span class="text-gray-500 fw-bold fs-11px">
+                                                        {{driver.Last_name}}
+                                                </span>
+                                        </div>  
+                                </div>
+                        </div>
+                </div>
+                <div class="card border-0 mb-4">
+                        <div class="card-header h6 mb-0 bg-none p-3 d-flex">
+                                <div class="flex-1">
+                                        <div>Other Names:
+                                                <span class="text-gray-500 fw-bold fs-11px">{{driver.Other_names}}</span>
+                                        </div>  
+                                </div>
+                        </div>
+                </div>
+                <div class="card border-0 mb-4">
+                        <div class="card-header h6 mb-0 bg-none p-3 d-flex">
+                                <div class="flex-1">
+                                        <div>National ID:
+                                                <span class="text-gray-500 fw-bold fs-11px"> {{driver.national_ID}}</span>
+                                        </div>  
+                                </div>
+                        </div>
+                </div>
+                <div class="card border-0 mb-4">
+                        <div class="card-header h6 mb-0 bg-none p-3 d-flex">
+                                <div class="flex-1">
+                                        <div>Address:
+                                                <span class="text-gray-500 fw-bold fs-11px"> {{driver.address}}</span>
+                                        </div>  
+                                </div>
+                        </div>
+                </div>
+                <div class="card border-0 mb-4">
+                        <div class="card-header h6 mb-0 bg-none p-3 d-flex">
+                                <div class="flex-1">
+                                        <div>Email:
+                                                <span class="text-gray-500 fw-bold fs-11px"> {{driver.Email}}</span>
+                                        </div>  
+                                </div>
+                        </div>
+                </div>
+                <div class="card border-0 mb-4">
+                        <div class="card-header h6 mb-0 bg-none p-3 d-flex">
+                                <div class="flex-1">
+                                        <div>Phone number:
+                                                <span class="text-gray-500 fw-bold fs-11px"> {{driver.Phone_number}}</span>
+                                        </div>  
+                                </div>
+                        </div>
+                </div>
+                <div class="card border-0 mb-4">
+                        <div class="card-header h6 mb-0 bg-none p-3 d-flex">
+                                <div class="flex-1">
+                                        <div>License Number:
+                                                <span class="text-gray-500 fw-bold fs-11px"> {{driver.license_no}}</span>
+                                        </div>  
+                                </div>
+                        </div>
+                </div>
+                <div class="card border-0 mb-4">
+                        <div class="card-header h6 mb-0 bg-none p-3 d-flex">
+                                <div class="flex-1">
+                                        <div>License Expiry Date:
+                                                <span class="text-gray-500 fw-bold fs-11px"> {{driver.license_expiry_date}}</span>
+                                        </div>  
+                                </div>
+                        </div>
+                </div>
+                <div class="card border-0 mb-4">
+                        <div class="card-header h6 mb-0 bg-none p-3 d-flex">
+                                <div class="flex-1">
+                                        <div>Status:
+                                                <span class="text-gray-500 fw-bold fs-11px"> {{driver.status}}</span>
+                                        </div>  
+                                </div>
+                        </div>
+                </div>
+                
+        
+                 
+                   
+        </div>
+                      
+        </div>
+        </div>
+	</div>
+	
+	
+   {%endblock content%}

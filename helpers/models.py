@@ -4,10 +4,10 @@ class Tracking(models.Model):
     created_at=models.DateTimeField(auto_now=True)
     updated_at=models.DateField(auto_now=True)
     STATUS = (
-        ('A', 'Active'),
-        ('N', 'Not Active'),
+        ('Active', 'Active'),
+        ('Inactive', 'Inactive'),
     )
-    STATUS=models.CharField(max_length=1, choices=STATUS)
+    status=models.CharField(max_length=50, choices=STATUS,default='Active')
 
     class Meta:
         abstract = True

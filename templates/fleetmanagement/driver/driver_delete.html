@@ -1,0 +1,26 @@
+{%extends '_partials/base.html'%}
+{%load static%}
+   {%block content%}
+   <div id="content" class="app-content">
+    <h1 class="page-header"></h1>
+    <div class="row d-flex align-items-center justify-content-center">
+      <div class="col-xl-6 text-center">
+        <div class="alert alert-pink alert-dismissible fade show h-100 mb-0">
+          <form action="{%url 'driver_delete' driver.id%}" method="POST">
+            {% csrf_token %}
+            <p>Are you sure you want to  delete this Driver?</p>
+            <p>{{driver.First_name}}  {{driver.Last_name}}  {{driver.Other_names}}</p>
+            <input type="submit" class="btn btn-danger me-1 mb-1" value="YES"/>
+            <a href="{%url 'driver_detail' driver.id%}" class="btn btn-dark me-1 mb-1">Cancel</a>
+          </form>
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      </div>
+  </div>
+      
+  </div>
+
+	
+	
+	
+   {%endblock content%}

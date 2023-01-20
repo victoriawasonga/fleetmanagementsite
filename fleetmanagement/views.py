@@ -1,15 +1,111 @@
 from django.shortcuts import render
+from .forms import DriverForm
+from .models import Driver
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.shortcuts import get_object_or_404
+from django.contrib import messages
 
-# Create your views here.
 def index(request):
     return render(request,"fleetmanagement/dashboard.html")
 
-#driver 
+######################################################## Driver ####################################################################################
 def drivers_view(request):
-    return render(request,"fleetmanagement/drivers_view.html")
+    drivers=Driver.objects.all()
+    drivers_count=drivers.count()
+    drivers_active_count=drivers.filter(status="Active").count()
+    drivers_inactive_count=drivers.filter(status="Inactive").count()
+
+    context={
+        'drivers':drivers,
+        'drivers_count':drivers_count,
+        'drivers_active_count':drivers_active_count,
+        'drivers_inactive_count':drivers_inactive_count
+    }
+    return render(request,"fleetmanagement/driver/drivers_view.html",context)
 
 def driver_add(request):
-    return render(request,"fleetmanagement/driver_add.html")
+    form=DriverForm()
+    context={
+        "form":form
+    }
+    if request.method=="POST":
+        First_name=request.POST.get('First_name')
+        Last_name=request.POST.get('Last_name')
+        Other_names=request.POST.get('Other_names')
+        national_ID=request.POST.get('national_ID')
+        address=request.POST.get('address')
+        Email=request.POST.get('Email')
+        Phone_number=request.POST.get('Phone_number')
+        license_no=request.POST.get('license_no')
+        license_expiry_date=request.POST.get('license_expiry_date')
+        status=request.POST.get('status')
 
-def driver_edit(request):
-    return render(request,"fleetmanagement/driver_edit.html")
+        driver=Driver()
+        driver.First_name=First_name
+        driver.Last_name=Last_name
+        driver.Other_names=Other_names
+        driver.national_ID=national_ID
+        driver.address=address
+        driver.Email=Email
+        driver.Phone_number=Phone_number
+        driver.license_no=license_no
+        driver.license_expiry_date=license_expiry_date
+        driver.status=status
+        driver.save()
+        messages.add_message(request,messages.SUCCESS,"Driver Added Successfully")
+        return HttpResponseRedirect(reverse("drivers_view"))
+    return render(request,"fleetmanagement/driver/driver_add.html",context)
+
+def driver_detail(request,id):
+    driver=get_object_or_404(Driver,pk=id)
+    context={
+        'driver':driver
+    }
+    return render(request,"fleetmanagement/driver/driver_view.html",context)
+
+def driver_delete(request,id):
+    driver=get_object_or_404(Driver,pk=id)
+    context={
+        'driver':driver
+    }
+    if request.method=='POST':
+        driver.delete()
+        messages.add_message(request,messages.SUCCESS,"Driver deleted Successfully")
+        return HttpResponseRedirect(reverse('drivers_view'))
+    return render(request,"fleetmanagement/driver/driver_delete.html",context)
+
+def driver_edit(request,id):
+    driver=get_object_or_404(Driver,pk=id)
+    form=DriverForm(instance=driver)
+    context={
+        'driver':driver,
+        'form':form,
+    }
+    if request.method=='POST':
+        First_name=request.POST.get('First_name')
+        Last_name=request.POST.get('Last_name')
+        Other_names=request.POST.get('Other_names')
+        national_ID=request.POST.get('national_ID')
+        address=request.POST.get('address')
+        Email=request.POST.get('Email')
+        Phone_number=request.POST.get('Phone_number')
+        license_no=request.POST.get('license_no')
+        license_expiry_date=request.POST.get('license_expiry_date')
+        status=request.POST.get('status')
+
+        driver.First_name=First_name
+        driver.Last_name=Last_name
+        driver.Other_names=Other_names
+        driver.national_ID=national_ID
+        driver.address=address
+        driver.Email=Email
+        driver.Phone_number=Phone_number
+        driver.license_no=license_no
+        driver.license_expiry_date=license_expiry_date
+        driver.status=status
+        driver.save()
+        messages.add_message(request,messages.SUCCESS,"Driver Edited Successfully")
+        return HttpResponseRedirect(reverse("driver_detail",kwargs={'id':driver.pk}))
+    return render(request,"fleetmanagement/driver/driver_edit.html",context)
+########################################################End Driver ####################################################################################

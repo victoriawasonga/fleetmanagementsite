@@ -1,0 +1,118 @@
+{%extends '_partials/base.html'%}
+{%load static%}
+<!-- required files -->
+
+
+   {%block content%}
+   <div id="content" class="app-content">
+    <h1 class="page-header"></h1>
+	<div class="panel panel-inverse">
+        <div class="panel-heading">
+        <h4 class="panel-title">Drivers</h4>
+        <div class="panel-heading-btn">
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-default" data-toggle="panel-expand"></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-success" data-toggle="panel-reload"></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-warning" data-toggle="panel-collapse"></a>
+        <a href="javascript:;" class="btn btn-xs btn-icon btn-danger" data-toggle="panel-remove"></a>
+        </div>
+        </div>
+        <div class="panel-body">
+            {%include '_partials/messages.html'%}
+                {%if drivers%}
+                <div class="row">
+                    <table id="example" class="display display table table-striped table-bordered align-middle dataTable no-footer dtr-inline" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>National ID</th>
+                                <th>Phone</th>
+                                <th>License No</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {%for driver in drivers%}
+                                <tr>
+                                    <td>{{driver.First_name}} {{driver.Last_name}} {{driver.Other_names}}</td>
+                                    <td>{{driver.national_ID}}</td>
+                                    <td>{{driver.Phone_number}}</td>
+                                    <td>{{driver.license_no}}</td>
+                                    <td>{{driver.status}}</td>
+                                    <td>
+                                        <a href="{%url 'driver_detail' driver.pk%}" class="btn btn-info">View</a>
+                                        <a href="{%url 'driver_edit' driver.pk%}" class="btn btn-warning">Edit</a>
+                                        <a href="{%url 'driver_delete' driver.pk%}" class="btn btn-danger">Delete</a>
+                                    </td>
+
+                                </tr>
+                            {%endfor%}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Name</th>
+                                <th>National ID</th>
+                                <th>Phone</th>
+                                <th>License No</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </tfoot> 
+                    </table>
+                </div>
+                    <hr/>
+                    <h1 class="page-header mb-10px mt-50px">Summary</h1>
+                    <div class="row d-flex align-items-center justify-content-center">
+                        <div class="col-xl-2 col-md-4">
+                        <div class="widget widget-stats bg-dark">
+                        <div class="stats-icon stats-icon-lg"><i class="fa fa-globe fa-fw"></i></div>
+                        <div class="stats-content">
+                        <div class="stats-title">All Drivers</div>
+                        <div class="stats-number">{{drivers_count}}</div>
+                        </div>
+                        </div>
+                        </div>
+                    
+                        
+                        <div class="col-xl-2 col-md-4">
+                        <div class="widget widget-stats bg-blue">
+                        <div class="stats-icon stats-icon-lg"><i class="fa fa-dollar-sign fa-fw"></i></div>
+                        <div class="stats-content">
+                        <div class="stats-title">Active Drivers</div>
+                        <div class="stats-number">{{drivers_active_count}}</div>
+                        </div>
+                        </div>
+                        </div>
+                        
+                        
+                        <div class="col-xl-2 col-md-4">
+                        <div class="widget widget-stats bg-purple">
+                        <div class="stats-icon stats-icon-lg"><i class="fa fa-archive fa-fw"></i></div>
+                        <div class="stats-content">
+                        <div class="stats-title">Inactive Drivers</div>
+                        <div class="stats-number">{{drivers_inactive_count}}</div>
+                        </div>
+                        </div>
+                        </div>
+                        
+                    </div>
+                {%else%}
+                <div class="row d-flex align-items-center justify-content-center">
+                    <div class="col-md-11">
+                        <div class="note note-gray" style="background:#c9cfd4">
+                            <div class="note-content">
+                            <h4><b>Note!</b></h4>
+                            <h6> No Driver yet you can create your first 
+                                <a href="{%url 'driver_add'%}">Here</a></h6>
+                            </div>
+                        </div>
+                    </div>
+                <div>
+                {%endif%}
+        
+            </div>
+        </div>
+	</div>
+
+	
+   {%endblock content%}

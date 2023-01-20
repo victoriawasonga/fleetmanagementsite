@@ -3,7 +3,9 @@
    {%block content%}
    <div id="content" class="app-content">
     <h1 class="page-header"></h1>
-	<div class="panel panel-inverse">
+    <div class="row d-flex align-items-center justify-content-center">
+        <div class="col-md-9">
+        	<div class="panel panel-inverse">
         <div class="panel-heading">
         <h4 class="panel-title">Add a new Driver</h4>
         <div class="panel-heading-btn">
@@ -14,8 +16,22 @@
         </div>
         </div>
         <div class="panel-body">
-        Panel Content Here
+            <form class="form" action="{%url 'driver_add'%}" method="POST">
+                {% csrf_token %}
+                 {{form.as_p}}
+                 <div class="row d-flex d-flex align-items-center justify-content-center ">
+                    <div class="col-md-4">
+                    <input type="submit" class=" btn h-45px btn-success d-block w-100 btn-lg" value="Submit"/>
+                    </div>
+                </div>
+                <!-- html -->
+
+            </form>
         </div>
-        </div>
+             </div>
+                </div>
+    
+    </div>
 	</div>
+    
    {%endblock content%}

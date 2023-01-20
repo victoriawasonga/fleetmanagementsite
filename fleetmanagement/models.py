@@ -7,28 +7,28 @@ from django.db import models
 from helpers.models import Tracking
 
 class CustomUser(Tracking):
-    FIRST_NAME=models.CharField(max_length=255,default=True)
-    LAST_NAME=models.CharField(max_length=255,default=True)
-    OTHER_NAMES=models.CharField(max_length=255,default=True)
-    NATIONAL_ID=models.CharField(max_length=100,default=True)
-    ADDRESS=models.CharField(max_length=100,default=True)
-    EMAIL=models.CharField(max_length=100,default=True)
-    PHONE_NUMBER=models.CharField(max_length=255,default=True)
+    First_name=models.CharField(max_length=255,default="")
+    Last_name=models.CharField(max_length=255,default="")
+    Other_names=models.CharField(max_length=255,default="")
+    national_ID=models.CharField(max_length=100,default="")
+    address=models.CharField(max_length=100,default="")
+    Email=models.CharField(max_length=100,default="")
+    Phone_number=models.CharField(max_length=255,default="")
     def __str__(self):
-        return self.FIRST_NAME+self.LAST_NAME+self.OTHER_NAMES
+        return self.First_name+self.Last_name+self.Other_names
     class Meta:
         abstract = True
         ordering = ('-created_at',)
 
 class Driver(CustomUser):
-    LICENSE_NO=models.CharField(max_length=255)
-    LICENSE_EXPIRY_DATE=models.DateField()
+    license_no=models.CharField(max_length=255)
+    license_expiry_date=models.DateField()
     def __str__(self):
-        return self.FIRST_NAME+self.LAST_NAME+self.OTHER_NAMES
+         return self.First_name+self.Last_name+self.Other_names
 
 class Vehicle_Owner(CustomUser):
     def __str__(self):
-        return self.FIRST_NAME+self.LAST_NAME+self.OTHER_NAMES
+        return self.First_name+self.Last_name+self.Other_names
 
 class Vehicle(Tracking):
     FUEL = (
@@ -39,84 +39,85 @@ class Vehicle(Tracking):
         ('TRUCK', 'TRUCK'),
         ('CONSTRUCTION', 'CONSTRUCTION'),
     )
-    REG_PLATE=models.CharField(max_length=100)
-    MAKE=models.CharField(max_length=255)
-    COLOR=models.CharField(max_length=255)
-    TYPE_OF_BODY=models.CharField(max_length=255)
-    CHASIS_NO=models.CharField(max_length=150)
-    ENGINE_NO=models.CharField(max_length=150)
-    YEAR_OF_MANUFACTURE=models.IntegerField(blank=False)
-    CARRING_CAPACITY=models.CharField(max_length=100)
-    FUEL_TYPE=models.CharField(max_length=6, choices=FUEL)
-    VEHCILE_TYPE=models.CharField(max_length=12, choices=V_TYPE)
-    MILLAGE=models.CharField(max_length=100)
-    INSUARANCE_EXPIRY_DATE=models.IntegerField(blank=False)
-    VEHICLE_OWNER=models.ForeignKey(to=Vehicle_Owner,on_delete=models.CASCADE)
-    COST_PER_KM=models.IntegerField(blank=False)
+    Reg_plate=models.CharField(max_length=100)
+    make=models.CharField(max_length=255)
+    color=models.CharField(max_length=255)
+    Type_of_body=models.CharField(max_length=255)
+    chasis_no=models.CharField(max_length=150)
+    engine_no=models.CharField(max_length=150)
+    year_of_manufacture=models.IntegerField(blank=False)
+    carring_capacity=models.CharField(max_length=100)
+    fuel_type=models.CharField(max_length=6, choices=FUEL)
+    vehicle_type=models.CharField(max_length=12, choices=V_TYPE)
+    millage=models.CharField(max_length=100)
+    insuarance_expiry_date=models.IntegerField(blank=False)
+    vehicle_owner=models.ForeignKey(to=Vehicle_Owner,on_delete=models.CASCADE,null=True)
+    cost_per_km=models.IntegerField(blank=False)
 
     def __str__(self):
-        return self.REG_PLATE
+        return self.Reg_plate
 
 
 class Tool(Tracking):
-    NAME=models.CharField(max_length=100)
-    DESCRIPTION=models.TextField(blank=True)
+    name=models.CharField(max_length=100,null=True)
+    description=models.TextField(blank=True)
 
     def __str__(self):
-        return self.NAME
+        return self.name
 
 class Staff(CustomUser):
-    ROLE=models.CharField(max_length=255)
+    role=models.CharField(max_length=255)
     def __str__(self):
-        return self.FIRST_NAME+self.LAST_NAME+self.OTHER_NAMES
+        return self.First_name+self.Last_name+self.Other_names
 
 class Tool_issuing(Tracking):
-    DATE=models.DateField()
-    TOOL=models.ForeignKey(to=Tool, on_delete=models.CASCADE)
-    DRIVER=models.ForeignKey(to=Driver, on_delete=models.CASCADE)
-    ISSUING_STAFF=models.ForeignKey(to=Staff, on_delete=models.CASCADE)
-    COMMENT=models.TextField()
+    date=models.DateField()
+    tool=models.ForeignKey(to=Tool, on_delete=models.CASCADE)
+    driver=models.ForeignKey(to=Driver, on_delete=models.CASCADE)
+    issuing_staff=models.ForeignKey(to=Staff, on_delete=models.CASCADE)
+    comment=models.TextField()
     def __str__(self):
-        return self.TOOL+self.DRIVER
+        return self.tool+self.driver
 
 class Task(Tracking):
-    NAME=models.CharField(max_length=100)
-    DESCRIPTION=models.TextField(blank=True)
+    name=models.CharField(max_length=100)
+    description=models.TextField(blank=True)
+
     def __str__(self):
-        return self.NAME
+        return self.name
 
 class Booking(Tracking):
-    SOURCE=models.CharField(max_length=100)
-    DESTINATION=models.CharField(max_length=100)
-    BOOKING_DATE=models.DateField()
-    START_DATE=models.DateField()
-    END_DATE=models.DateField()
-    SECURITY_DEPOSIT=models.IntegerField()
-    ALLOCATED_STAFF=models.ForeignKey(to=Staff,on_delete=models.CASCADE)
-    ALLOCATED_DRIVER=models.ForeignKey(to=Vehicle,on_delete=models.CASCADE)
-    VEHICLE=models.ForeignKey(to=Driver,on_delete=models.CASCADE)
-    PURPOSE_OF_THE_JOURNEY=models.ForeignKey(to=Task,on_delete=models.CASCADE)
+    source=models.CharField(max_length=100)
+    destination=models.CharField(max_length=100)
+    booking_date=models.DateField()
+    start_date=models.DateField()
+    end_date=models.DateField()
+    security_deposit=models.IntegerField()
+    allocated_staff=models.ForeignKey(to=Staff,on_delete=models.CASCADE)
+    allocated_driver=models.ForeignKey(to=Vehicle,on_delete=models.CASCADE)
+    vehicle=models.ForeignKey(to=Driver,on_delete=models.CASCADE)
+    purpose_of_the_journey=models.ForeignKey(to=Task,on_delete=models.CASCADE)
     def __str__(self):
-        return self.BOOKING_DATE
+        return self.booking_date
 
 class Journey(Tracking):
-    BOOKING_ID=models.ForeignKey(to=Booking,on_delete=models.CASCADE)
-    START_DATE=models.DateField()
-    END_DATE=models.DateField()
-    SPEEDOMETER_READING_START=models.IntegerField()
-    SPPEDOMETER_READING_END=models.IntegerField()
-    TOTAL_KMS=models.IntegerField()
-    FUEL_CONSUMED=models.IntegerField()
-    ENGINE_OIL=models.IntegerField()
-    OTHER_OILS=models.IntegerField()
-    WEIGHT_CARRIED=models.IntegerField()
-    COST=models.IntegerField()
+    booking_id=models.ForeignKey(to=Booking,on_delete=models.CASCADE)
+    start_date=models.DateField()
+    end_date=models.DateField()
+    speedometer_reading_start=models.IntegerField()
+    speedometer_reading_end=models.IntegerField()
+    total_kms=models.IntegerField()
+    fuel_consumed=models.IntegerField()
+    engine_oil=models.IntegerField()
+    other_oils=models.IntegerField()
+    weight_carried=models.IntegerField()
+    cost=models.IntegerField()
     def __str__(self):
-        return self.BOOKING_ID
+        return self.booking_id
 
 class Repair(Tracking):
-    REGISTERED_DATE=models.DateField()
-    VEHICLE=models.ForeignKey(to=Driver,on_delete=models.CASCADE)
-    ISSUE=models.TextField()
+    Registered_date=models.DateField()
+    vehicle=models.ForeignKey(to=Driver,on_delete=models.CASCADE)
+    issue=models.TextField()
     def __str__(self):
-        return self.REGISTERED_DATE
+        return self.Registered_date
