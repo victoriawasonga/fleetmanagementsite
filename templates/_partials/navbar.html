@@ -1,5 +1,5 @@
+{%load static%}
 <div id="sidebar" class="app-sidebar">
-
     <div class="app-sidebar-content" data-scrollbar="true" data-height="100%">
     
     <div class="menu">
@@ -26,16 +26,28 @@
     <div class="menu-divider m-0"></div>
     </div>
     <div class="menu-header"></div>
-    <div class="menu-item has-sub active">
-    <a href="javascript:;" class="menu-link">
-    <div class="menu-text">Dashboard</div>
-    </a>
+    <div class="menu-item">
+        <a href="{%url 'home'%}" class="menu-link">
+            <div class="menu-text">Dashboard</div>
+        </a>
     </div>
-    <div class="menu-item has-sub">
-    <a href="javascript:;" class="menu-link">
-    <div class="menu-text">Email</div>
-    </a>
-    </div>
+    <div class="menu-item has-sub expand">
+        <a href="javascript:;" class="menu-link">
+        <div class="menu-text">Drivers</div>
+        </a>
+        <div class="menu-submenu" style="box-sizing: border-box; display: block;">
+        <div class="menu-item">
+        <a href="{%url 'drivers'%}" class="menu-link">
+        <div class="menu-text">View Drivers</div>
+        </a>
+        </div>
+        <div class="menu-item">
+        <a href="{%url 'driver_add'%}" class="menu-link">
+        <div class="menu-text">Add New Driver</div>
+        </a>
+        </div>
+        </div>
+        </div>
     <div class="menu-item">
     <a href="widget.html" class="menu-link">
     <div class="menu-text">Widgets</div>
