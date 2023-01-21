@@ -1,14 +1,42 @@
 from django.shortcuts import render
+from django.views import View
 from .forms import DriverForm
 from .models import Driver
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
 from django.contrib import messages
+import json
+from django.http import JsonResponse
 
 def index(request):
     return render(request,"fleetmanagement/dashboard.html")
 
+class LicenseValidationView(View):
+    def post(self,request):
+        data=json.loads(request.body)
+        license_no=data['license_no'] 
+        if not str(license_no).isalnum():
+            return JsonResponse({
+                "license_no_error": "License Number is invalid  it should only contain alpanumeric characters ",
+            })
+
+
+def licence_validation(request):
+    if request.method=="POST":
+        data=json.loads(request.body)
+        license_no=data['license_no'] 
+        if not str(license_no).isalnum():
+            return JsonResponse({
+                "license_no_error": "License Number is invalid  it should only contain alpanumeric characters "},status=400)
+        if Driver.objects.filter(license_no=license_no).exists():
+            return JsonResponse({
+                "license_no_error": "License Number is already in our database "},status=409)
+        
+        return JsonResponse({
+            "license_valid":True
+        })
+        
 ######################################################## Driver ####################################################################################
 def drivers_view(request):
     drivers=Driver.objects.all()
